@@ -1,0 +1,46 @@
+  <%- include('../navigation/header') %>
+  <br><br><br>
+  <div class="container c2">
+    <div class="row">
+      <div class="col-lg-3 col-md-12">
+        <div class="card dashboard-card1" onclick="window.location.href = '/news'">
+          <h1><i class="far fa-newspaper"></i></h1>
+          <h3>News</h3>
+        </div>
+      </div>
+      <% if(role_id == 1 || role_id == 2){%>
+        <div class="col-lg-3 col-md-12">
+            <div class="card dashboard-card1" onclick="window.location.href = '/users'">
+              <h1><i class="fas fa-user-tie"></i></h1>
+              <h3>Users</h3>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="card dashboard-card1" onclick="window.location.href = '/slider'">
+            <h1><i class="fas fa-image"></i></h1>
+            <h3>Slider</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="card dashboard-card1" onclick="window.location.href = '/ads'">
+            <h1><i class="fab fa-adversal"></i></h1>
+            <h3>Ads</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="card dashboard-card1" onclick="window.location.href = '/posts'">
+            <h1><i class="fas fa-folder"></i></h1>
+            <h3>Directory</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="card dashboard-card1" onclick="window.location.href = '/e-paper'">
+            <h1><i class="fas fa-copy"></i></h1>
+            <h3>E-paper</h3>
+          </div>
+        </div>
+      <%}%>
+    </div>
+  </div>
+  <br><br>
+  <%- include('../navigation/footer') %>

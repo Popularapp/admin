@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard Page</title>
+    <link rel="icon" href="/images/tr_logo.png" type="image/icon type">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script>
+    <link rel='stylesheet' href='/stylesheets/dashboard.css' />
+    <script>
+        // ;(function(){
+        //     function id(v){ return document.getElementById(v); }
+        //     function loadbar() {
+        //         var ovrl = id("overlay");
+        //         // var prog = id("progress");
+        //         // var stat = id("progstat");
+        //         var img = document.images,
+        //             c = 0,
+        //             tot = img.length;
+        //         if(tot == 0) return doneLoading();
+        //
+        //         function imgLoaded(){
+        //             c += 1;
+        //             // var perc = ((100/tot*c) << 0) +"%";
+        //             // prog.style.width = perc;
+        //             // stat.innerHTML = "Loading "+ perc;
+        //             if(c===tot) return doneLoading();
+        //         }
+        //         function doneLoading(){
+        //             ovrl.style.opacity = 0;
+        //             setTimeout(function(){
+        //                 ovrl.style.display = "none";
+        //             }, 2000);
+        //         }
+        //         for(var i=0; i<tot; i++) {
+        //             var tImg     = new Image();
+        //             tImg.onload  = imgLoaded;
+        //             tImg.onerror = imgLoaded;
+        //             tImg.src     = img[i].src;
+        //         }
+        //     }
+        //     document.addEventListener('DOMContentLoaded', loadbar, false);
+        // }());
+        function show_sidebar(){
+            if(document.getElementById('side-bar').style.display == "none"){
+                document.getElementById('side-bar').style.display = "block";
+            } else if(document.getElementById('side-bar').style.display == "block"){
+                document.getElementById('side-bar').style.display = "none";
+            }
+        }
+        function hide_sidebar(){
+            if(document.getElementById('side-bar').style.display == "none"){
+                document.getElementById('side-bar').style.display = "block";
+            } else if(document.getElementById('side-bar').style.display == "block"){
+                document.getElementById('side-bar').style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+<!--<div id="overlay">-->
+<!--    <div style="width: 400px">-->
+<!--        <div class="image">-->
+<!--            <img src="/images/785.gif" alt="">-->
+<!--        </div>-->
+<!--        &lt;!&ndash;        <div id="progstat"></div>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <div style="width: 100%;height: 5px;background: #c9c9c9">&ndash;&gt;-->
+<!--        &lt;!&ndash;            <div id="progress"></div>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--        <br>-->
+<!--    </div>-->
+<!--</div>-->
+
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="row" style="width:100%;margin: 0;">
+        <div class="col-lg-3 col-6">
+            <a class="navbar-brand" href="/" style="margin-left: 3px"><img src="/images/extra2.png" alt="" width="32"></a>
+            <a class="navbar-brand" href="#" onclick="show_sidebar()" style="margin-left: 10px"><i class="fas fa-bars"></i></a>
+        </div>
+        <div class="col-lg-7 col-2">
+        </div>
+        <div class="col-lg-2 col-4" style="text-align: right;">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown" style="width: 100%">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #555B6D">
+                        <i class="fas fa-user-cog"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/settings"><i class="fas fa-cog"></i> Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout" style="color: #F27474"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="side-bar1">
+    <ul>
+        <li onclick="window.location.href = '/'">
+            <a href="/">
+                <i class="fas fa-home"></i>
+            </a>
+        </li>
+        <% if(role_id == 1 || role_id == 2){%>
+                <li onclick="window.location.href = '/users'" class="seeUser">
+                    <a href="/users">
+                        <i class="fas fa-user-tie"></i>
+                    </a>
+                    <div class="forUser">
+                        <ul>
+                            <li onclick="window.location.href = '/users'">
+                                <a href="/users" class="list-group-item list-group-item-action">
+                                    All Users
+                                </a>
+                            </li>
+                            <li onclick="window.location.href = '/add-user'">
+                                <a href="/add-user" class="list-group-item list-group-item-action">Create Users</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+        <%}%>
+        <li onclick="window.location.href = '/news'" class="seeNews">
+            <a href="/news">
+                <i class="far fa-newspaper"></i>
+            </a>
+            <div class="forNews">
+                <ul>
+                    <li onclick="window.location.href = '/news'">
+                        <a href="/news">
+                            My News
+                        </a>
+                    </li>
+                    <li onclick="window.location.href = '/add-news'">
+                        <a href="/add-news">Create News</a>
+                    </li>
+                    <% if(role_id == 1 || role_id == 2){%>
+                        <li onclick="window.location.href = '/categories'">
+                            <a href="/categories">
+                                All categories
+                            </a>
+                        </li>
+                        <li onclick="window.location.href = '/add-category'">
+                            <a href="/add-category">Create category</a>
+                        </li>
+                    <%}%>
+                </ul>
+            </div>
+        </li>
+        <% if(role_id == 1 || role_id == 2){%>
+            <li onclick="window.location.href = '/slider'">
+                <a href="/slider">
+                    <i class="fas fa-image"></i>
+                </a>
+            </li>
+            <li onclick="window.location.href = '/ads'">
+                <a href="/ads">
+                    <i class="fab fa-adversal"></i>
+                </a>
+            </li>
+            <li onclick="window.location.href = '/posts'" class="seeDirectory">
+                <a href="/posts">
+                    <i class="fas fa-folder"></i>
+                </a>
+                <div class="forDirectory">
+                    <ul>
+                        <li>
+                            <a href="/posts">
+                                My Posts
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/forms">
+                                Forms
+                            </a>
+                        </li>
+                            <li>
+                                <a href="/add-dcategory">
+                                    All categories
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </li>
+            <li onclick="window.location.href = '/e-paper'" class="seeEpaper">
+                <a href="/e-paper">
+                    <i class="fas fa-copy"></i>
+                </a>
+                <div class="forEpaper">
+                    <ul>
+                        <li onclick="window.location.href = '/e-paper'">
+                            <a href="/e-paper">
+                                My E-papers
+                            </a>
+                        </li>
+                            <li onclick="window.location.href = '/add-epaper-category'">
+                                <a href="/add-epaper-category">
+                                    All categories
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </li>
+        <%}%>
+    </ul>
+</div>
+
+<div id="side-bar" style="display: none;overflow-y: scroll">
+    <ul id="brand">
+        <li id="li1"><a href="/"><img src="/images/tr_logo.png" alt="" id="brand_image"></a></li>
+        <li id="text" style="padding-left: 10px;margin-right: 0px;"><a href="/" style="color: white;text-decoration: none">Popular</a></li>
+        <li id="close"><a href="#" onclick="hide_sidebar()"><i class="fas fa-times"></i></a></li>
+    </ul>
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header" id="headingzero">
+                <h5 class="mb-0">
+                    <a href="/" class="btn btn-link">
+                        <span><i class="fab fa-dyalog"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="ads-text">Dashboard</span>
+                    </a>
+                </h5>
+            </div>
+        </div>
+        <% if(role_id == 1 || role_id == 2){%>
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <span id="admin_icon"><i class="fas fa-user-tie"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="admin-text">Users<i class="fas fa-caret-down" style="margin-left: 10px"></i></span>
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="list-group">
+                                <a href="/users" class="list-group-item list-group-item-action">
+                                    All Users
+                                </a>
+                                <a href="/add-user" class="list-group-item list-group-item-action">Create User</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <%}%>
+        <div class="card">
+            <div class="card-header" id="headingFour">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <span id="news_icon"><i class="far fa-newspaper"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="news-text">News<i class="fas fa-caret-down" style="margin-left: 10px"></i></span>
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="/news" class="list-group-item list-group-item-action">
+                            My News
+                        </a>
+                        <a href="/add-news" class="list-group-item list-group-item-action">Create News</a>
+                        <% if(role_id == 1 || role_id == 2){%>
+                            <a href="/categories" class="list-group-item list-group-item-action">
+                                All categories
+                            </a>
+                            <a href="/add-category" class="list-group-item list-group-item-action">Create category</a>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% if(role_id == 1 || role_id == 2){%>
+            <div class="card">
+                <div class="card-header" id="headingSix">
+                    <h5 class="mb-0">
+                        <a href="/slider" class="btn btn-link">
+                            <span id="banner_icon"><i class="fas fa-image"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="banner-text">Slider</span>
+                        </a>
+                    </h5>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0">
+                        <a href="/ads" class="btn btn-link">
+                            <span id="ads_icon"><i class="fab fa-adversal"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="ads-text">Ads</span>
+                        </a>
+                    </h5>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingNine">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                            <span id="dr_icon"><i class="fas fa-folder"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="dr-text">Directory<i class="fas fa-caret-down" style="margin-left: 10px"></i></span>
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="list-group">
+                            <a href="/posts" class="list-group-item list-group-item-action">
+                                My Posts
+                            </a>
+                            <a href="/forms" class="list-group-item list-group-item-action">
+                                Forms
+                            </a>
+                                <a href="/add-dcategory" class="list-group-item list-group-item-action">
+                                    All categories
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingTen">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                            <span id="dr_icon"><i class="fas fa-copy"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="dr-text">E-paper<i class="fas fa-caret-down" style="margin-left: 10px"></i></span>
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="list-group">
+                            <a href="/e-paper" class="list-group-item list-group-item-action">
+                                My E-papers
+                            </a>
+                                <a href="/add-epaper-category" class="list-group-item list-group-item-action">
+                                    All categories
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <%}%>
+    </div>
+</div>

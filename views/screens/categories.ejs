@@ -1,0 +1,159 @@
+<%- include('../navigation/header') %>
+<br><br><br>
+<div class="container" style="background-color: white;height: 85vh;width: 100%;padding: 20px;border-radius: 10px;box-shadow: 0px 0px 12px rgba(0,0,0,0.1);overflow-y: scroll;">
+    <div class="row">
+        <div class="col-lg-6 col-md-12" style="border-right: 1px solid #DFDFDF;height: 80vh;overflow-y: scroll;overflow-x: hidden">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <p style="font-weight: bold;letter-spacing: 1px">Categories</p>
+                </div>
+                <div class="col-lg-6 col-md-12">
+
+                </div>
+            </div>
+            <% for(var i=0;i<categories.length;i++){ %>
+            <%if(categories[i].name != null){%>
+                <div class="card" style="margin: 10px;padding: 10px;">
+                    <div class="row">
+                        <div class="col-6">
+                            <%if(categories[i].is_state == 1){%>
+                                <h6><%= i+1%>. <%= categories[i].name %> (state)</h6>
+                            <%} else if(categories[i].is_state == 0){%>
+                                    <h6><%= i+1%>. <%= categories[i].name %></h6>
+                            <%}%>
+                            <%if(categories[i].headingColor == ''){%>
+                                <h6>No Color</h6>
+                            <%} else {%>
+                                <h6 style="color: <%= categories[i].headingColor %>">Heading Color</h6>
+                            <%}%>
+                        </div>
+                        <div class="col-2">
+                            <a data-toggle="collapse" href="#collapse<%= i %>" role="button" aria-expanded="false" aria-controls="collapse<%= i %>" style="color: #34C38F;text-decoration: none;padding: 4px 8px;border-radius: 50%"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <div class="col-2">
+                            <a href="#category<%=i%>" style="color: #007BFF;text-decoration: none;padding: 4px 7px;border-radius: 50%" data-toggle="modal"><i class="fas fa-edit"></i></a>
+                            <div class="modal fade" id="category<%=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="/edit-category/<%= categories[i].id%>" method="post">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="">Name</label>
+                                                    <input type="text" class="form-control" name="c_name" id="" value="<%= categories[i].name %>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Heading Color</label>
+                                                    <input type="color" class="form-control" name="headingColor" id="" value="<%= categories[i].headingColor %>">
+                                                </div>
+                                                <div class="form-check">
+                                                    <%if(categories[i].is_state == 1){%>
+                                                        <input class="form-check-input" type="checkbox" name="is_state" value="1" id="flexCheckDefault" checked>
+                                                    <%} else if(categories[i].is_state == 0){%>
+                                                            <input class="form-check-input" type="checkbox" name="is_state" value="1" id="flexCheckDefault">
+                                                    <%}%>
+                                                    <label class="form-check-label" for="flexCheckDefault" style="color: red">
+                                                        ** If it is a State then select this **
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <a href="/delete-category/<%= categories[i].id%>" class="confirm" style="color: #DC3545;text-decoration: none;padding: 4px 8px;border-radius: 50%"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                </div>
+            <%}%>
+            <% } %>
+        </div>
+        <div class="col-lg-6 col-md-12" style="height: 80vh;overflow-y: scroll;overflow-x: hidden">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <p style="font-weight: bold;letter-spacing: 1px">Sub Categories</p>
+                </div>
+                <div class="col-lg-6 col-md-12">
+
+                </div>
+            </div>
+            <% for(var i=0;i<categories.length;i++){ %>
+            <%if(categories[i].name != null){%>
+                <div class="collapse" id="collapse<%= i %>">
+                    <div class="row">
+                        <div class="col-10">
+                            <h6 style="font-weight: bold"><%= categories[i].name %> Sub Categories</h6>
+                        </div>
+                        <div class="col-2" style="text-align: right">
+                            <a data-toggle="collapse" href="#collapse<%= i %>" role="button" aria-expanded="false" aria-controls="collapse<%= i %>" style="color: #DC3545;text-decoration: none;padding: 4px 8px;border-radius: 50%"><i class="fas fa-times-circle"></i></a>
+                        </div>
+                    </div>
+                    <%var k =1;%>
+                    <% for(var j=0;j<sub_categories.length;j++){ %>
+                        <% if(sub_categories[j].category_id == categories[i].id){ %>
+                            <div class="card" style="margin: 10px;padding: 10px;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h6><%= k%>. <%= sub_categories[j].name %></h6>
+                                        <%k++;%>
+                                    </div>
+                                    <div class="col-2">
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="#scategory<%=j%>" style="color: #007BFF;text-decoration: none;padding: 4px 7px;border-radius: 50%" data-toggle="modal"><i class="fas fa-edit"></i></a>
+                                        <div class="modal fade" id="scategory<%=j%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="/edit-sub-category/<%= sub_categories[j].id%>" method="post">
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" name="sc_name" id="" value="<%= sub_categories[j].name %>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="/delete-sub-category/<%= sub_categories[j].id%>" class="confirm" style="color: #DC3545;text-decoration: none;padding: 4px 8px;border-radius: 50%"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    <% } %>
+                </div>
+            <%}%>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<script src="/javascripts/dashboard.js"></script>
+<script>
+    $('a.confirm').on('click', function(){
+        if(!confirm('Confirm Deletion')){
+            return false;
+        }
+    });
+</script>
+<%- include('../navigation/footer') %>

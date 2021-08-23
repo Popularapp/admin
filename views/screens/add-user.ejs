@@ -1,0 +1,125 @@
+<%- include('../navigation/header') %>
+<br><br><br>
+<div class="container" style="background-color: white;width: 100%;padding: 5px;border-radius: 10px;box-shadow: 0px 0px 12px rgba(0,0,0,0.1);">
+    <br>
+    <h5 style="font-weight: bold;letter-spacing: 1px;text-align: center">Create New User</h5>
+    <br>
+    <form action="/add-user" method="post" enctype="multipart/form-data">
+        <div class="row" style="padding: 10px">
+            <div class="col-md-12 col-lg-6">
+                <div class="form-group">
+                    <label for="">Phone Number</label>
+                    <input type="tel" class="form-control" id="username" name="username" onkeyup="checkUser()" placeholder="Enter Phone Number" maxlength="13" minlength="10" required>
+                    <small id="checkUsername" class="form-text" style="text-align: center;"></small>
+                </div>
+                <div class="form-group">
+                    <label for="">Full Name</label>
+                    <input type="text" class="form-control" name="full_name" placeholder="Enter Full Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="" >Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Enter password" required minlength="6" maxlength="16">
+                </div>
+                <div class="form-group">
+                    <label for="" >Role</label>
+                    <select class="form-control" name="role">
+                        <%if(role_id == 1){%>
+                            <option value=2>Admin</option>
+                        <%}%>
+                        <%if(role_id == 1 || role_id == 2){%>
+                            <option value=3>Reporter</option>
+                        <%}%>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-6">
+                <div class="form-group">
+                    <label for="" >State</label>
+                    <select class="form-control" name="state" id="state">
+                        <option>Select State</option>
+                        <% for(var i=0;i<states.length;i++){ %>
+                            <option value="<%= states[i].id %>"><%= states[i].name %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="" >City</label>
+                    <select class="form-control" name="city" id="city">
+                        <option>Select City</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for=""  style="margin-top: 5px">Profile Photo(Please Upload a passport size photo)</label>
+                    <input type="file" class="form-control-file" name="images" accept="image/x-png,image/gif,image/jpeg">
+                </div>
+                <div class="form-group">
+                    <label for="" style="margin-top: 5px">Upload Document</label>
+                    <input type="file" class="form-control-file" name="document">
+                </div>
+                <input type="hidden" name="admin_id" value=<%=admin_id%>>
+            </div>
+        </div>
+        <br>
+        <button type="submit" id="verify" class="btn btn-primary" style="width: 100%;background-color: #556ee6;">Create</button>
+    </form>
+</div>
+</div>
+
+<script src="/javascripts/dashboard.js"></script>
+<script>
+    function checkUser(){
+        var b = document.getElementById('username').value;
+        $.ajax({
+            url:"/searchUser/" + b,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                if(data[0] != undefined){
+                    document.getElementById('checkUsername').innerHTML = "Username already exists";
+                    document.getElementById('checkUsername').style.color = "rgb(255, 31, 31)";
+                    $('#verify').attr("disabled","disabled");
+                } else {
+                    document.getElementById('checkUsername').innerHTML = "";
+                    $('#verify').removeAttr("disabled");
+                }
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+    $('#state').change(function(){
+        var a = document.getElementById('state').value;
+        var select = document.getElementById("city");
+        var length = select.options.length;
+        for (var i = length-1; i >= 0; i--) {
+            select.options[i] = null;
+        }
+        $.ajax({
+            // url:"/getCity/" + a,
+            url:"/getSubCategory/" + a,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                var b = data;
+                if(b.length == 0){
+                    var option = document.createElement("option");
+                    option.text = "No City Present";
+                    option.value= "other";
+                    select.add(option);
+                } else {
+                    for(var i=0;i<b.length;i++){
+                        var option = document.createElement("option");
+                        option.text = b[i].name;
+                        option.value= b[i].name;
+                        select.add(option);
+                    }
+                }
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    });
+</script>
+<%- include('../navigation/footer') %>

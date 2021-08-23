@@ -1,0 +1,174 @@
+<%- include('../navigation/header') %>
+<br><br><br>
+<div class="container" style="background-color: white;width: 100%;padding: 0px;border-radius: 10px;box-shadow: 0px 0px 12px rgba(0,0,0,0.1);">
+    <div class="row" style="width: 100%;margin: 0">
+        <div class="col-lg-12 col-md-12" style="padding: 10px">
+            <h5 style="font-weight: bold;letter-spacing: 1px;text-align: center">Create News</h5>
+            <br>
+<!--            <form action="/add-news" method="post" enctype="multipart/form-data">-->
+            <form onsubmit="return createNews()">
+                <div class="row" style="width: 100%;margin: 0">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label for="" >Category</label>
+                            <%if(role_id == 3){%>
+                                <%if(categories.length != 0){%>
+                                    <select class="form-control" name="c" id="c" required>
+                                        <option value="<%= categories[0].id %>"><%= categories[0].name %></option>
+                                    </select>
+                                <%} else {%>
+                                    <select class="form-control" name="c" id="c" required>
+                                        <option value="12">राजस्थान</option>
+                                    </select>
+                                <%}%>
+                            <%} else {%>
+                                <select class="form-control" name="c" id="c" required>
+                                    <option value="">Select Category</option>
+                                    <% for(var i=0;i<categories.length;i++){ %>
+                                        <%if(categories[i].name != null){%>
+                                            <option value="<%= categories[i].id %>"><%= categories[i].name %></option>
+                                        <% } %>
+                                    <% } %>
+                                </select>
+                            <%}%>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label for="">Sub-Category</label>
+                            <%if(role_id == 3){%>
+                                <%if(subcategories.length != 0){%>
+                                    <select class="form-control" name="sc" id="sc" required>
+                                        <option value="<%= subcategories[0].id %>"><%= subcategories[0].name %></option>
+                                    </select>
+                                <%} else {%>
+                                    <select class="form-control" name="sc" id="sc" required>
+                                        <option value="0">other</option>
+                                    </select>
+                                <%}%>
+                            <%} else {%>
+                                <select class="form-control" name="sc" id="sc" required>
+                                    <option value="">Select Subcategory</option>
+                                </select>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="width: 100%;margin: 0">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="form-group">
+                            <label for="">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="width: 100%;margin: 0">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="form-group">
+                            <label for="">Short Description</label>
+                            <textarea type="text" class="form-control" id="sd" name="sd" placeholder="Enter Short Description" maxlength="140" rows="4" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="admin_id" id="admin_id" value=<%=admin_id%>>
+                <div class="form-group">
+                    <label for="">Content</label>
+                    <textarea name="ta" class="form-control" id="ta" cols="30" rows="8" placeholder="Content" required></textarea>
+                </div>
+                <div class="row" style="width: 100%;margin: 0;">
+                    <div class="col-lg-6 col-sm-12" style="border-right: 1px solid #d3d3d3">
+                        <div class="row" style="margin: 0;width: 100%;padding: 0">
+                            <div class="col-10" style="padding: 0">
+                                <label for="">Add Images(Select Multiple Images)</label>
+                            </div>
+                            <div class="col-2" style="padding: 0;text-align: right">
+                                <a onclick="addimage()" style="text-decoration: none;font-size: 1.5rem"><i class="fas fa-plus-circle"></i></a>
+                            </div>
+                        </div>
+                        <div class="row" id="imagegroup">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="form-group">
+                                            <input type="file" class="form-control-file news-images" name="images" id="img0" accept="image/x-png,image/gif,image/jpeg" onchange="showPreview('0',this.files)">
+                                            <input type="hidden" name="image" id="image0">
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <a id="forFirstImage" onclick="deleteimage('0')" style="text-decoration: none;font-size: 1.5rem;color: #DC3545;display: none"><i class="fas fa-times-circle"></i></a>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="button" onclick="submitImage('0')" id="upload-image-button0" class="btn btn-primary news-images-button">Upload</button>
+                                        <br><br>
+                                    </div>
+                                    <div class="col-12" style="padding: 15px">
+                                        <img src="/images/no_image.jpeg" alt="" id="image-preview0" style="width: 100%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="row" style="margin: 0;width: 100%;padding: 0">
+                            <div class="col-10" style="padding: 0">
+                                <label for="">Add Videos(Select Multiple Videos)</label>
+                            </div>
+                            <div class="col-2" style="padding: 0;text-align: right">
+                                <a onclick="addMoreVideo()" style="text-decoration: none;font-size: 1.5rem"><i class="fas fa-plus-circle"></i></a>
+                            </div>
+                        </div>
+                        <div id="addMoreVideos">
+                            <div class="row" style="margin: 0;width: 100%;padding: 0">
+                                <div class="col-lg-6 col-12" style="padding: 0">
+                                    <div class="form-group">
+                                        <input type="file" class="form-control-file news-videos" name="videos" id="youtube-videos0" accept="video/*" onchange="showVideoPreview('0',this.files)">
+                                        <input type="hidden" name="url" id="url0">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-6" style="padding: 0;">
+                                    <button type="button" onclick="submitvideo('0')" id="upload-button0" class="btn btn-primary news-videos-button">Upload</button>
+                                    <br><br>
+                                </div>
+                                <div class="col-lg-2 col-6" style="padding: 0;text-align: right">
+                                    <a id="forFirstVideo" onclick="removeVideo('0')" style="text-decoration: none;font-size: 1.5rem;color: #DC3545;display: none"><i class="fas fa-times-circle"></i></a>
+                                </div>
+                                <div class="col-12" style="padding: 15px;padding: 0">
+                                    <video width="100%" controls>
+                                        <source src="mov_bbb.mp4" id="video_here0">
+                                        Your browser does not support HTML5 video.
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br><br>
+                <div class="container" style="width: 50%;text-align: center">
+                    <button type="submit" id="verify" class="btn btn-primary" style="width: 100%;background-color: #556ee6">Create</button>
+                </div>
+            </form>
+
+            <br>
+        </div>
+    </div>
+</div>
+
+<div id="overlay1">
+    <div style="width: 400px">
+        <div class="image">
+            <img src="/images/upload.gif" alt="">
+        </div>
+        <br>
+    </div>
+</div>
+
+<% for(var i=0;i<subcategories.length;i++){ %>
+<input type="hidden" name="" id="subcategoriesName<%=i%>" value="<%=subcategories[i].name%>">
+<input type="hidden" name="" id="subcategoriesId<%=i%>" value="<%=subcategories[i].id%>">
+<input type="hidden" name="" id="subcategoriesCat<%=i%>" value="<%=subcategories[i].category_id%>">
+<%}%>
+<input type="hidden" name="" id="subcatlength" value=<%=subcategories.length%>>
+<script src="/javascripts/create-news.js"></script>
+
+<%- include('../navigation/footer') %>

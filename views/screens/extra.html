@@ -1,0 +1,64 @@
+<!--            <div class="form-group">-->
+<!--                <select class="form-control" name="" id="url">-->
+<!--                    <option>Select the News</option>-->
+<!--                    <option value="/news">My News</option>-->
+<!--                    <% if(role_id == 1){%>-->
+<!--                        <option value="/admin-news">Admin News</option>-->
+<!--                    <%}%>-->
+<!--                    <% if(role_id == 1 || role_id == 2){%>-->
+<!--                        <option value="/reporter-news">Reporter News</option>-->
+<!--                    <%}%>-->
+<!--                </select>-->
+<!--            </div>-->
+
+
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-6 col-md-12">-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="" >State</label>-->
+<!--                            <select class="form-control" name="state" id="state" required>-->
+<!--                                <option value="Rajasthan">Rajasthan</option>-->
+<!--                                <% for(var i=0;i<states.length;i++){ %>-->
+<!--                                    <option value="<%= states[i].name %>"><%= states[i].name %></option>-->
+<!--                                <% } %>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6 col-md-12">-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="" >City</label>-->
+<!--                            <select class="form-control" name="city" id="city" required>-->
+<!--                                <option value="Bhilwara">Bhilwara</option>-->
+<!--                                <% for(var i=0;i<cities.length;i++){ %>-->
+<!--                                    <option value="<%= cities[i].name %>"><%= cities[i].name %></option>-->
+<!--                                <% } %>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        <div class="form-group">
+            <label for="" >State</label>
+            <select class="form-control" name="state" id="state">
+                <option value="<%= news[0].state %>"><%= news[0].state %></option>
+                <% for(var i=0;i<states.length;i++){ %>
+                <option value="<%= states[i].name %>"><%= states[i].name %></option>
+                <% } %>
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="form-group">
+            <label for="" >City</label>
+            <select class="form-control" name="city" id="city">
+                <option value="<%= news[0].city %>"><%= news[0].city %></option>
+                <% for(var i=0;i<cities.length;i++){ %>
+                <option value="<%= cities[i].name %>"><%= cities[i].name %></option>
+                <% } %>
+            </select>
+        </div>
+    </div>
+</div>

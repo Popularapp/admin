@@ -1,0 +1,42 @@
+
+<!--Bootstrap links-->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/javascripts/dashboard.js"></script>
+
+<script type="text/javascript">
+    // var inactivityTime = function () {
+    //     var time;
+    //     window.onload = resetTimer;
+    //     // DOM Events
+    //     document.onload = resetTimer;
+    //     document.onmousemove = resetTimer;
+    //     document.onmousedown = resetTimer; // touchscreen presses
+    //     document.ontouchstart = resetTimer;
+    //     document.onclick = resetTimer;     // touchpad clicks
+    //     document.onkeydown = resetTimer;   // onkeypress is deprectaed
+    //     document.addEventListener('scroll', resetTimer, true); // improved; see comments
+    //     function logout() {
+    //         // alert("You are now logged out.")
+    //         window.location.href = '/logout'
+    //     }
+    //
+    //     function resetTimer() {
+    //         clearTimeout(time);
+    //         time = setTimeout(logout, 1*24*60*60*1000);
+    //         // 1000 milliseconds = 1 second
+    //     }
+    // };
+    //
+    // window.onload = function() {
+    //     inactivityTime();
+    // }
+    $(document).ready(function(){
+        $("img").bind("error",function(){
+            // Replacing image source
+            $(this).attr("src","/images/no_image.jpeg");
+        });
+    });
+</script>
+</body>
+</html>

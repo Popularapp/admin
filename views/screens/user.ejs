@@ -1,0 +1,417 @@
+<%- include('../navigation/header') %>
+
+<br><br><br>
+<div class="container" style="padding: 0px">
+    <div class="row" style="border-radius: 10px;box-shadow: 0px 0px 12px rgba(0,0,0,0.1);padding: 10px 20px;background-color: white;width: 100%;margin: 0;background-color: #ED3237;color: white">
+        <div class="col-lg-8 col-5" style="padding: 0px 5px;height: 40px">
+            <p style="font-weight: bold;letter-spacing: 1px">All Users</p>
+        </div>
+        <div class="col-lg-4 col-7" style="padding: 0px 5px;height: 40px;text-align: right">
+            <a href="/add-user" class="btn btn-primary" style="background-color: white;color: #ED3237;border: 0">Create User</a>
+            <br><br>
+        </div>
+<!--        <div class="col-lg-2 col-md-12" style="padding: 0px 5px;height: 40px">-->
+<!--            <div class="form-group">-->
+<!--                <select class="form-control" name="query" id="query">-->
+<!--                    <option value="name">Name</option>-->
+<!--                    <option value="phone">Phone</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-12" style="padding: 0px 5px;height: 40px">-->
+<!--            <div class="form-group">-->
+<!--                <input type="text" name="name" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search name or phone">-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+    <div class="col-12" style="margin-top: 10px;text-align: center">
+        <p>
+            <%if(role_id == 1 || role_id == 2){%>
+                <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Reporters</a>
+            <%}%>
+                <%if(role_id == 1){%>
+            <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Admins</a>
+                <%}%>
+            <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3">Users</a>
+        </p>
+        <div class="row">
+            <div class="col-12">
+                <div class="collapse multi-collapse show" id="multiCollapseExample1">
+                    <div class="table-responsive" style="padding: 0;margin: 0;border-radius: 10px">
+                        <table class="table" id="myTable" style="padding: 0;background-color: white;margin: 0;border-radius: 10px">
+                            <thead>
+                            <tr>
+                                <th scope="col">S.no.</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Fullname</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Option</th>
+                                <th scope="col">Approved</th>
+                                <th scope="col">Auto Approved</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% for(var i=0;i<users.length;i++){ %>
+                                <%if(users[i].role_id == 3){%>
+                                    <%if(users[i].is_approved == 0){%>
+                                        <tr>
+                                            <th scope="row"><%= i+1 %></th>
+                                            <td><%= users[i].name %></td>
+                                            <td><%= users[i].full_name %></td>
+                                            <td><%= users[i].phone %></td>
+                                            <td><%= users[i].city %></td>
+                                            <td>
+                                                <button style="background-color: #34C38F;color: white;border: 0;border-radius: 5px;padding:2px 10px">Reporter</button>
+                                            </td>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <a href="/edit-user/<%= users[i].user_id%>" tyle="background-color: #007BFF;color:white;text-decoration: none;padding: 4px 7px;border: 0" class="btn btn-primary">Edit</a>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <a href="/delete-user/<%= users[i].user_id%>" style="background-color: #DC3545;text-decoration: none;padding: 4px 8px;border:0;color: white" class="confirm btn btn-danger">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <%if(users[i].is_approved == 1){%>
+                                                <td style="QAtext-align: center">
+                                                    <div class="form-group">
+                                                        <input type="checkbox" name="is_approved" id="" value="<%= users[i].user_id %>" onchange="approved(this.value)" checked>
+                                                    </div>
+                                                </td>
+                                            <%} else {%>
+                                                <td style="text-align: center">
+                                                    <div class="form-group">
+                                                        <input type="checkbox" name="is_approved" id="" value="<%= users[i].user_id %>" onchange="notapproved(this.value)">
+                                                    </div>
+                                                </td>
+                                            <%}%>
+                                            <%if(users[i].auto_approved == 1){%>
+                                                <td style="QAtext-align: center">
+                                                    <div class="form-group">
+                                                        <input type="checkbox" name="auto_approved" id="" value="<%= users[i].user_id %>" onchange="autoApproved(this.value)" checked>
+                                                    </div>
+                                                </td>
+                                            <%} else {%>
+                                                <td style="text-align: center">
+                                                    <div class="form-group">
+                                                        <input type="checkbox" name="auto_approved" id="" value="<%= users[i].user_id %>" onchange="autoNotapproved(this.value)">
+                                                    </div>
+                                                </td>
+                                            <%}%>
+                                        </tr>
+                                    <%}%>
+                            <% } %>
+                            <% } %>
+                            <% for(var i=0;i<users.length;i++){ %>
+                            <%if(users[i].role_id == 3){%>
+                            <%if(users[i].is_approved == 1){%>
+                                <tr>
+                                    <th scope="row"><%= i+1 %></th>
+                                    <td><%= users[i].name %></td>
+                                    <td><%= users[i].full_name %></td>
+                                    <td><%= users[i].phone %></td>
+                                    <td><%= users[i].city %></td>
+                                    <td>
+                                        <button style="background-color: #34C38F;color: white;border: 0;border-radius: 5px;padding:2px 10px">Reporter</button>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <a href="/edit-user/<%= users[i].user_id%>" tyle="background-color: #007BFF;color:white;text-decoration: none;padding: 4px 7px;border: 0" class="btn btn-primary">Edit</a>
+                                            </div>
+                                            <div class="col-6">
+                                                <a href="/delete-user/<%= users[i].user_id%>" style="background-color: #DC3545;text-decoration: none;padding: 4px 8px;border:0;color: white" class="confirm btn btn-danger">Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <%if(users[i].is_approved == 1){%>
+                                        <td style="QAtext-align: center">
+                                            <div class="form-group">
+                                                <input type="checkbox" name="is_approved" id="" value="<%= users[i].user_id %>" onchange="approved(this.value)" checked>
+                                            </div>
+                                        </td>
+                                    <%} else {%>
+                                        <td style="text-align: center">
+                                            <div class="form-group">
+                                                <input type="checkbox" name="is_approved" id="" value="<%= users[i].user_id %>" onchange="notapproved(this.value)">
+                                            </div>
+                                        </td>
+                                    <%}%>
+                                    <%if(users[i].auto_approved == 1){%>
+                                        <td style="QAtext-align: center">
+                                            <div class="form-group">
+                                                <input type="checkbox" name="auto_approved" id="" value="<%= users[i].user_id %>" onchange="autoApproved(this.value)" checked>
+                                            </div>
+                                        </td>
+                                    <%} else {%>
+                                        <td style="text-align: center">
+                                            <div class="form-group">
+                                                <input type="checkbox" name="auto_approved" id="" value="<%= users[i].user_id %>" onchange="autoNotapproved(this.value)">
+                                            </div>
+                                        </td>
+                                    <%}%>
+                                </tr>
+                            <%}%>
+                            <% } %>
+                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="collapse multi-collapse" id="multiCollapseExample2">
+                    <div class="table-responsive" style="padding: 0;margin: 0;border-radius: 10px">
+                        <table class="table" id="myTable1" style="padding: 0;background-color: white;margin: 0;border-radius: 10px">
+                            <thead>
+                            <tr>
+                                <th scope="col">S.no.</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Fullname</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Option</th>
+                                <th scope="col">Approved</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% for(var i=0;i<users.length;i++){ %>
+                            <%if(users[i].role_id == 2){%>
+                            <%if(users[i].is_approved == 0){%>
+                                <tr>
+                                    <th scope="row"><%= i+1 %></th>
+                                    <td><%= users[i].name %></td>
+                                    <td><%= users[i].full_name %></td>
+                                    <td><%= users[i].phone %></td>
+                                    <td><%= users[i].city %></td>
+                                    <td>
+                                        <button style="background-color: #E83E8C;color: white;border: 0;border-radius: 5px;padding:2px 10px">Admin</button>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <a href="/edit-user/<%= users[i].user_id%>" style="background-color: #007BFF;color:white;text-decoration: none;padding: 4px 7px;border: 0" class="btn btn-primary">Edit</a>
+                                            </div>
+                                                <div class="col-6">
+                                                    <a href="/delete-user/<%= users[i].user_id%>" style="background-color: #DC3545;text-decoration: none;padding: 4px 8px;border:0;color: white" class="confirm btn btn-danger">Delete</a>
+                                                </div>
+                                        </div>
+                                    </td>
+                                    <%if(users[i].is_approved == 1){%>
+                                        <td style="QAtext-align: center">
+                                            <div class="form-group">
+                                                <input type="checkbox" name="is_approved" id="" value="<%= users[i].user_id %>" onchange="approved(this.value)" checked>
+                                            </div>
+                                        </td>
+                                    <%} else {%>
+                                        <td style="text-align: center">
+                                            <div class="form-group">
+                                                <input type="checkbox" name="is_approved" id="" value="<%= users[i].user_id %>" onchange="notapproved(this.value)">
+                                            </div>
+                                        </td>
+                                    <%}%>
+                                </tr>
+                            <%}%>
+                            <% } %>
+                            <% } %>
+                            <% for(var i=0;i<users.length;i++){ %>
+                            <%if(users[i].role_id == 2){%>
+                            <%if(users[i].is_approved == 1){%>
+                                <tr>
+                                    <th scope="row"><%= i+1 %></th>
+                                    <td><%= users[i].name %></td>
+                                    <td><%= users[i].full_name %></td>
+                                    <td><%= users[i].phone %></td>
+                                    <td><%= users[i].city %></td>
+                                    <td>
+                                        <button style="background-color: #E83E8C;color: white;border: 0;border-radius: 5px;padding:2px 10px">Admin</button>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <a href="/edit-user/<%= users[i].user_id%>" style="background-color: #007BFF;color:white;text-decoration: none;padding: 4px 7px;border: 0" class="btn btn-primary">Edit</a>
+                                            </div>
+                                            <div class="col-6">
+                                                <a href="/delete-user/<%= users[i].user_id%>" style="background-color: #DC3545;text-decoration: none;padding: 4px 8px;border:0;color: white" class="confirm btn btn-danger">Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <%if(users[i].is_approved == 1){%>
+                                        <td style="QAtext-align: center">
+                                            <div class="form-group">
+                                                <input type="checkbox" name="is_approved" id="" value="<%= users[i].user_id %>" onchange="approved(this.value)" checked>
+                                            </div>
+                                        </td>
+                                    <%} else {%>
+                                        <td style="text-align: center">
+                                            <div class="form-group">
+                                                <input type="checkbox" name="is_approved" id="" value="<%= users[i].user_id %>" onchange="notapproved(this.value)">
+                                            </div>
+                                        </td>
+                                    <%}%>
+                                </tr>
+                            <%}%>
+                            <% } %>
+                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            <div class="col-12">
+                <div class="collapse multi-collapse" id="multiCollapseExample3">
+                    <div class="table-responsive" style="padding: 0;margin: 0;border-radius: 10px">
+                        <table class="table" id="myTable2" style="padding: 0;background-color: white;margin: 0;border-radius: 10px">
+                            <thead>
+                            <tr>
+                                <th scope="col">S.no.</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Fullname</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Option</th>
+                                <th scope="col">Approved</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% for(var i=0;i<users.length;i++){ %>
+                            <%if(users[i].role_id == 4){%>
+                                <tr>
+                                    <th scope="row"><%= i+1 %></th>
+                                    <td><%= users[i].name %></td>
+                                    <td><%= users[i].full_name %></td>
+                                    <td><%= users[i].phone %></td>
+                                    <td><%= users[i].city %></td>
+                                    <td>
+                                        <button style="background-color: #F1B44C;color: white;border: 0;border-radius: 5px;padding:2px 10px">User</button>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <a href="/edit-user/<%= users[i].user_id%>" data-toggle="modal" style="background-color: #007BFF;color:white;text-decoration: none;padding: 4px 7px;border: 0" class="btn btn-primary">Edit</a>
+                                            </div>
+                                                <div class="col-6">
+                                                    <a href="/delete-user/<%= users[i].user_id%>" style="background-color: #DC3545;text-decoration: none;padding: 4px 8px;border:0;color: white" class="confirm btn btn-danger">Delete</a>
+                                                </div>
+                                        </div>
+                                    </td>
+                                    <%if(users[i].is_approved == 1){%>
+                                        <td style="QAtext-align: center">
+                                            <div class="form-group">
+                                                <input type="checkbox" name="is_approved" id="" value="<%= users[i].user_id %>" onchange="approved(this.value)" checked>
+                                            </div>
+                                        </td>
+                                    <%} else {%>
+                                        <td style="text-align: center">
+                                            <div class="form-group">
+                                                <input type="checkbox" name="is_approved" id="" value="<%= users[i].user_id %>" onchange="notapproved(this.value)">
+                                            </div>
+                                        </td>
+                                    <%}%>
+                                </tr>
+                            <% } %>
+                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</div>
+
+<script src="/javascripts/dashboard.js"></script>
+<script>
+    function autoApproved(a){
+        $.ajax({
+            url:"/Userautonotapproved/" + a,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                console.log('done');
+                // window.location.href = window.location.href;
+                location.reload();
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+    function autoNotapproved(a){
+        $.ajax({
+            url:"/Userautoapproved/" + a,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                console.log('done');
+                // window.location.href = window.location.href;
+                location.reload();
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+    function approved(a){
+        $.ajax({
+            url:"/Usernotapproved/" + a,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                console.log('done');
+                // window.location.href = window.location.href;
+                location.reload();
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+    function notapproved(a){
+        $.ajax({
+            url:"/Userapproved/" + a,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                console.log('done');
+                // window.location.href = window.location.href;
+                location.reload();
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+    $('a.confirm').on('click', function(){
+        if(!confirm('Confirm Deletion')){
+            return false;
+        }
+    });
+    function myFunction() {
+        var query = document.getElementById('query').value;
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            console.log(td);
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+<%- include('../navigation/footer') %>

@@ -1,0 +1,326 @@
+<%- include('../navigation/header') %>
+<br><br><br>
+
+<div class="container" style="padding: 0px">
+    <div class="row" style="border-radius: 10px;box-shadow: 0px 0px 12px rgba(0,0,0,0.1);padding: 10px 20px;background-color: white;width: 100%;margin: 0;background-color: #ED3237;color: white">
+        <div class="col-lg-1 col-5" style="padding: 0px 5px;height: 40px">
+            <p style="font-weight: bold;letter-spacing: 1px">News</p>
+        </div>
+        <div class="col-lg-2 col-7" style="padding: 0px 5px;height: 40px;text-align: center">
+            <a href="/add-news" class="btn btn-primary" style="background-color: white;color: #ED3237;border: 0">Create News</a>
+            <br><br>
+        </div>
+        <div class="col-lg-3 col-md-12" style="padding: 0px 5px;height: 40px;text-align: center">
+            <% if(role_id == 1){%>
+                <a href="/news" class="btn btn-primary" style="background-color: white;color: #ED3237;border: 0">My</a>
+                <a href="/admin-news" class="btn btn-primary" style="background-color: white;color: #ED3237;border: 0">Admin</a>
+                <a href="/reporter-news" class="btn btn-primary" style="background-color: white;color: #ED3237;border: 0">Reporter</a>
+            <%}%>
+            <% if(role_id == 2){%>
+                    <a href="/news" class="btn btn-primary" style="background-color: white;color: #ED3237;border: 0">My</a>
+                <a href="/reporter-news" class="btn btn-primary" style="background-color: white;color: #ED3237;border: 0">Reporter</a>
+            <%}%>
+        </div>
+        <div class="col-lg-2 col-md-12" style="padding: 0px 5px;height: 40px">
+            <div class="form-group">
+                <select class="form-control" name="query" id="query">
+                    <option value="title">Title</option>
+                    <option value="category">Category</option>
+                    <option value="subcategory">Sub Category</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12" style="padding: 0px 5px;height: 40px">
+            <div class="form-group">
+                <input type="text" name="name" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search by Title/Categories/Sub-category">
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive" style="height: 80vh;padding: 0;margin: 0;overflow-y: scroll;border-radius: 10px">
+        <table class="table" id="myTable" style="padding: 0;background-color: white;margin: 0;border-radius: 10px">
+            <thead>
+            <tr>
+                <th scope="col">S.no.</th>
+                <th scope="col">Title</th>
+                <th scope="col">Category</th>
+                <th scope="col">Sub-category</th>
+                <th scope="col">Options</th>
+                <% if(role_id == 1 || role_id == 2){%>
+                    <th scope="col">Important</th>
+                    <th scope="col">Approved</th>
+                    <th scope="col">Notification</th>
+                    <th scope="col">Posted By</th>
+                <%}%>
+                <th scope="col">Views</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0;i<news.length;i++){ %>
+            <%if(news[i].is_approved == 0){%>
+                <tr>
+                    <th style="padding: 0 5px"><%= i+1 %></th>
+                    <td style="padding: 0">
+                        <p style="height: 40px;overflow: hidden;padding: 0;margin: 0">
+                            <%= news[i].title %>
+                        </p>
+                    </td>
+                    <td style="padding: 0"><%= news[i].c_name %></td>
+                    <%if(news[i].sub_category_id == 0){%>
+                        <td style="padding: 0">Other</td>
+                    <%} else {%>
+                        <td style="padding: 0"><%= news[i].sc_name %></td>
+                    <%}%>
+                    <td style="padding: 0">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="/edit-news/<%= news[i].news_id%>" style="background-color: #007BFF;color:white;text-decoration: none;padding: 4px 7px;border: 0" class="btn btn-primary">Edit</a>
+                            </div>
+                            <% if(role_id == 1 || role_id == 2){%>
+                            <div class="col-6">
+                                <a href="/delete-news/<%= news[i].news_id%>" style="background-color: #DC3545;text-decoration: none;padding: 4px 8px;border:0;color: white" class="confirm btn btn-primary">Delete</a>
+                            </div>
+                            <%}%>
+                        </div>
+                    </td>
+                    <% if(role_id == 1 || role_id == 2){%>
+                    <%if(news[i].imp == 1){%>
+                        <td style="text-align: center;padding: 0">
+                            <div class="form-group">
+                                <input type="checkbox" name="is_imp" id="" value="<%= news[i].news_id %>" onchange="unchecked(this.value)" checked>
+                            </div>
+                        </td>
+                    <%} else {%>
+                        <td style="text-align: center;padding: 0">
+                            <div class="form-group">
+                                <input type="checkbox" name="is_not_imp" id="" onchange="checkedit(this.value)" value="<%= news[i].news_id %>">
+                            </div>
+                        </td>
+                    <%}%>
+                    <%if(news[i].is_approved == 1){%>
+                        <td style="text-align: center;padding: 0">
+                            <div class="form-group">
+                                <input type="checkbox" name="is_approved" id="" value="<%= news[i].news_id %>" onchange="approved(this.value)" checked>
+                            </div>
+                        </td>
+                    <%} else {%>
+                        <td style="text-align: center;padding: 0">
+                            <div class="form-group">
+                                <input type="checkbox" name="is_not_approved" id="" value="<%= news[i].news_id %>" onchange="notapproved(this.value)">
+                            </div>
+                        </td>
+                    <%}%>
+                    <td style="padding: 0">
+                        News not approved
+                    </td>
+                    <td><%=news[i].u_name%></td>
+                    <%}%>
+                    <td><%=news[i].views%></td>
+                </tr>
+            <%}%>
+            <% } %>
+            <% for(var i=0;i<news.length;i++){ %>
+            <%if(news[i].is_approved == 1){%>
+                <tr>
+                    <th style="padding: 0 5px"><%= i+1 %></th>
+                    <td style="padding: 0">
+                        <p style="height: 40px;overflow: hidden;padding: 0;margin: 0">
+                            <%= news[i].title %>
+                        </p>
+                    </td>
+                    <td style="padding: 0"><%= news[i].c_name %></td>
+                    <%if(news[i].sub_category_id == 0){%>
+                        <td style="padding: 0">Other</td>
+                    <%} else {%>
+                        <td style="padding: 0"><%= news[i].sc_name %></td>
+                    <%}%>
+                    <td style="padding: 0">
+                        <div class="row" style="margin-top: 5px">
+                            <div class="col-6">
+                                <a href="/edit-news/<%= news[i].news_id%>" style="background-color: #007BFF;color:white;text-decoration: none;padding: 4px 7px;border: 0" class="btn btn-primary">Edit</a>
+                            </div>
+                            <% if(role_id == 1 || role_id == 2){%>
+                            <div class="col-6">
+                                <a href="/delete-news/<%= news[i].news_id%>" style="background-color: #DC3545;text-decoration: none;padding: 4px 8px;border:0;color: white" class="confirm btn btn-primary">Delete</a>
+                            </div>
+                            <%}%>
+                        </div>
+                    </td>
+                    <% if(role_id == 1 || role_id == 2){%>
+                    <%if(news[i].imp == 1){%>
+                        <td style="text-align: center;padding: 0">
+                            <div class="form-group">
+                                <input type="checkbox" name="is_imp" id="" value="<%= news[i].news_id %>" onchange="unchecked(this.value)" checked>
+                            </div>
+                        </td>
+                    <%} else {%>
+                        <td style="text-align: center;padding: 0">
+                            <div class="form-group">
+                                <input type="checkbox" name="is_not_imp" id="" onchange="checkedit(this.value)" value="<%= news[i].news_id %>">
+                            </div>
+                        </td>
+                    <%}%>
+                    <%if(news[i].is_approved == 1){%>
+                        <td style="text-align: center;padding: 0">
+                            <div class="form-group">
+                                <input type="checkbox" name="is_approved" id="" value="<%= news[i].news_id %>" onchange="approved(this.value)" checked>
+                            </div>
+                        </td>
+                    <%} else {%>
+                        <td style="text-align: center;padding: 0">
+                            <div class="form-group">
+                                <input type="checkbox" name="is_not_approved" id="" value="<%= news[i].news_id %>" onchange="notapproved(this.value)">
+                            </div>
+                        </td>
+                    <%}%>
+                    <td style="padding: 0">
+                        <div class="row" style="margin-top: 5px">
+                            <div class="col-12" style="text-align: center">
+                                <a href="#" onclick="sendNotification('<%=news[i].title%>','<%=news[i].short_description%>')" style="background-color: #007BFF;color:white;text-decoration: none;padding: 4px 7px;border: 0" class="btn btn-primary">Send</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td><%=news[i].u_name%></td>
+                    <%}%>
+                    <td><%=news[i].views%></td>
+                </tr>
+            <%}%>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $('#url').change(function (){
+        window.location.href = this.value;
+    });
+    function approved(a){
+        $.ajax({
+            url:"/notapproved/" + a,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                console.log('done');
+                window.location.href = window.location.href;
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+    function notapproved(a){
+        $.ajax({
+            url:"/approved/" + a,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                console.log('done');
+                window.location.href = window.location.href;
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+    function unchecked(a){
+        $.ajax({
+            url:"/notimportant/" + a,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                console.log('done');
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+    function checkedit(a){
+        $.ajax({
+            url:"/important/" + a,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                console.log('done');
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+    $('a.confirm').on('click', function(){
+        if(!confirm('Confirm Deletion')){
+            return false;
+        }
+    });
+
+    function myFunction() {
+        var query = document.getElementById('query').value;
+        if(query == "title"){
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                console.log(td);
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        } else if(query == "subcategory"){
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[2];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        } else if(query == "category"){
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    }
+    function sendNotification(title,description){
+        $.ajax({
+            url:"/sendNotification/" + title + '/' + description,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                console.log('done');
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+</script>
+<%- include('../navigation/footer') %>

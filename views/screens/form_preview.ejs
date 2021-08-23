@@ -1,0 +1,304 @@
+<%- include('../navigation/header') %>
+<br><br><br>
+
+<div class="container" style="background-color: white;width: 100%;padding: 10px;border-radius: 10px;box-shadow: 0 0 12px rgba(0,0,0,0.1);overflow: hidden">
+    <div class="row">
+        <div class="col-6 col-lg-2">
+            <a href="/forms" class="btn btn-primary">All Forms</a>
+        </div>
+        <div class="col-6 col-lg-10">
+            <h3><%=forms[0].category_name%> Form Preview</h3>
+        </div>
+    </div>
+    <hr>
+    <form>
+        <%if(forms[0].brand == 1){%>
+            <div class="form-group">
+                <label for="">Brand</label>
+                <input type="text" name="brand" class="form-control" placeholder="Enter Brand Name">
+            </div>
+        <%}%>
+            <%if(forms[0].year == 1){%>
+                <div class="form-group">
+                    <label for="">Year</label>
+                    <input type="number" name="year" class="form-control" placeholder="Enter Year">
+                </div>
+            <%}%>
+            <%if(forms[0].fuel == 1){%>
+                <div class="form-group">
+                    <label for="">Fuel</label>
+                    <select name="fuel" class="form-control" id="">
+                        <option value="Petrol">Petrol</option>
+                        <option value="Diesel">Diesel</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].transmission == 1){%>
+                <div class="form-group">
+                    <label for="">Transmission</label>
+                    <select name="transmission" class="form-control" id="">
+                        <option value="Automatic">Automatic</option>
+                        <option value="Manual">Manual</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].km_driven == 1){%>
+                <div class="form-group">
+                    <label for="">KM Driven</label>
+                    <input type="number" name="km_driven" class="form-control" placeholder="Enter KM Driven">
+                </div>
+            <%}%>
+            <%if(forms[0].no_of_owners == 1){%>
+                <div class="form-group">
+                    <label for="">No. of Owners</label>
+                    <select name="no_of_owners" class="form-control" id="">
+                        <option value="1st hand">1st hand</option>
+                        <option value="2nd hand">2nd hand</option>
+                        <option value="3rd hand">3rd hand</option>
+                        <option value="4th hand">4th hand</option>
+                        <option value="4+">4+</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].ad_title == 1){%>
+                <div class="form-group">
+                    <label for="">Ad Title</label>
+                    <input type="text" name="ad_title" class="form-control" placeholder="Enter Ad Title">
+                </div>
+            <%}%>
+            <%if(forms[0].description == 1){%>
+                <div class="form-group">
+                    <label for="">Description</label>
+                    <textarea name="description" class="form-control" id="" cols="30" rows="5" placeholder="Enter Description"></textarea>
+                </div>
+            <%}%>
+            <%if(forms[0].type == 1){%>
+                <div class="form-group">
+                    <label for="">Type</label>
+                    <select name="type" class="form-control" id="">
+                        <option value="For Sale">For Sale</option>
+                        <option value="For Rent">For Rent</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].property == 1){%>
+                <div class="form-group">
+                    <label for="">Select Property</label>
+                    <select name="property" class="form-control" id="">
+                        <option value="Houses & Villas">Houses & Villas</option>
+                        <option value="Farm Houses">Farm Houses</option>
+                        <option value="Builder Floors">Builder Floors</option>
+                        <option value="Apartments">Apartments</option>
+                        <option value="Shops & Offices">Shops & Offices</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].bedroom == 1){%>
+                <div class="form-group">
+                    <label for="">Bedrooms</label>
+                    <input type="number" name="bedroom" class="form-control" placeholder="Enter No. of Bedrooms">
+                </div>
+            <%}%>
+            <%if(forms[0].bathroom == 1){%>
+                <div class="form-group">
+                    <label for="">Bathrooms</label>
+                    <input type="number" name="bathroom" class="form-control" placeholder="Enter No. of Bathrooms">
+                </div>
+            <%}%>
+            <%if(forms[0].furnishing == 1){%>
+                <div class="form-group">
+                    <label for="">Furnishing</label>
+                    <select name="furnishing" class="form-control" id="">
+                        <option value="Semi Furnished">Semi Furnished</option>
+                        <option value="Full Furnished">Full Furnished</option>
+                        <option value="Under Furnished">Under Furnished</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].construction_status == 1){%>
+                <div class="form-group">
+                    <label for="">Construction Status</label>
+                    <select name="construction_status" class="form-control" id="">
+                        <option value="Ready to Move">Ready to Move</option>
+                        <option value="New Launch">New Launch</option>
+                        <option value="Under Construction">Under Construction</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].listed_by == 1){%>
+                <div class="form-group">
+                    <label for="">Listed By</label>
+                    <select name="listed_by" class="form-control" id="">
+                        <option value="Builder">Builder</option>
+                        <option value="Owner">Owner</option>
+                        <option value="Dealer">Dealer</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].area == 1){%>
+                <div class="form-group">
+                    <label for="">Area</label>
+                    <input type="number" name="area" class="form-control" placeholder="Enter Area in sq foot">
+                </div>
+            <%}%>
+            <%if(forms[0].total_floors == 1){%>
+                <div class="form-group">
+                    <label for="">Total Floors</label>
+                    <input type="number" name="total_floors" class="form-control" placeholder="Enter Total No. of Floors">
+                </div>
+            <%}%>
+            <%if(forms[0].floor_no == 1){%>
+                <div class="form-group">
+                    <label for="">Floor No.</label>
+                    <input type="number" name="floor_no" class="form-control" placeholder="Enter Your Floor No.">
+                </div>
+            <%}%>
+            <%if(forms[0].car_parking == 1){%>
+                <div class="form-group">
+                    <label for="">Car Parking</label>
+                    <input type="number" name="car_parking" class="form-control" placeholder="Enter Total number of Car Parkings">
+                </div>
+            <%}%>
+            <%if(forms[0].company_role == 1){%>
+                <div class="form-group">
+                    <label for="">Company Role</label>
+                    <select name="company_role" class="form-control" id="">
+                        <option value="Data Entry & Back Office">Data Entry & Back Office</option>
+                        <option value="Sales & Marketing">Sales & Marketing</option>
+                        <option value="BPO & Telecaller">BPO & Telecaller</option>
+                        <option value="Delivery & Collection">Delivery & Collection</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="Receptionist & Front Office">Receptionist & Front Office</option>
+                        <option value="Operator & Technician">Operator & Technician</option>
+                        <option value="IT Engineer & Developer">IT Engineer & Developer</option>
+                        <option value="Hotel & Travel Executive">Hotel & Travel Executive</option>
+                        <option value="Accountant">Accountant</option>
+                        <option value="Designer">Designer</option>
+                        <option value="Other Jobs">Other Jobs</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].facing == 1){%>
+                <div class="form-group">
+                    <label for="">Facing</label>
+                    <select name="facing" class="form-control" id="">
+                        <option value="North">North</option>
+                        <option value="South">South</option>
+                        <option value="East">East</option>
+                        <option value="West">West</option>
+                        <option value="North-West">North-West</option>
+                        <option value="South-West">South-West</option>
+                        <option value="North-East">North-East</option>
+                        <option value="South-East">South-East</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].name == 1){%>
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="Enter Name of Product">
+                </div>
+            <%}%>
+            <%if(forms[0].bachelors_allowed == 1){%>
+                <div class="form-group">
+                    <label for="">Bachelors Allowed</label>
+                    <select name="bachelors_allowed" class="form-control" id="">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].salary_period == 1){%>
+                <div class="form-group">
+                    <label for="">Salary Period</label>
+                    <select name="bachelors_allowed" class="form-control" id="">
+                        <option value="Hourly">Hourly</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Weekly">Weekly</option>
+                        <option value="Yearly">Yearly</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].position_type == 1){%>
+                <div class="form-group">
+                    <label for="">Position Type</label>
+                    <select name="position_type" class="form-control" id="">
+                        <option value="Contract">Contract</option>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Temporary">Temporary</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].salary_from == 1){%>
+                <div class="form-group">
+                    <label for="">Salary From</label>
+                    <input type="number" name="salary_from" class="form-control" placeholder="Enter Salary From">
+                </div>
+            <%}%>
+            <%if(forms[0].salary_to == 1){%>
+                <div class="form-group">
+                    <label for="">Salary To</label>
+                    <input type="number" name="salary_to" class="form-control" placeholder="Enter Salary To">
+                </div>
+            <%}%>
+            <%if(forms[0].appliances == 1){%>
+                <div class="form-group">
+                    <label for="">Appliances</label>
+                    <select name="appliances" class="form-control" id="">
+                        <option value="TV's, Video & Audio">TV's, Video & Audio</option>
+                        <option value="Kitchen & Other Appliances">Kitchen & Other Appliances</option>
+                        <option value="Computers & Laptops">Computers & Laptops</option>
+                        <option value="Cameras & Lenses">Cameras & Lenses</option>
+                        <option value="Games & Entertainment">Games & Entertainment</option>
+                        <option value="Fridges">Fridges</option>
+                        <option value="Computer Accessories">Computer Accessories</option>
+                        <option value="Hard-disks, Printers & Monitors">Hard-disks, Printers & Monitors</option>
+                        <option value="AC's">AC's</option>
+                        <option value="Washing Machines">Washing Machines</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].furniture == 1){%>
+                <div class="form-group">
+                    <label for="">Furniture</label>
+                    <select name="furniture" class="form-control" id="">
+                        <option value="Sofa & Dining">Sofa & Dining</option>
+                        <option value="Beds & Wardrobes">Beds & Wardrobes</option>
+                        <option value="Home Decor & Garden">Home Decor & Garden</option>
+                        <option value="Kids Furniture">Kids Furniture</option>
+                        <option value="Other Household Items">Other Household Items</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].fashion == 1){%>
+                <div class="form-group">
+                    <label for="">Fashion</label>
+                    <select name="fashion" class="form-control" id="">
+                        <option value="Men">Men</option>
+                        <option value="Women">Women</option>
+                        <option value="Kids">Kids</option>
+                    </select>
+                </div>
+            <%}%>
+            <%if(forms[0].price == 1){%>
+                <div class="form-group">
+                    <label for="">Price</label>
+                    <input type="number" name="price" class="form-control" placeholder="Enter Price">
+                </div>
+            <%}%>
+            <%if(forms[0].phone_number == 1){%>
+                <div class="form-group">
+                    <label for="">Phone Number</label>
+                    <input type="tel" name="phone_number" class="form-control" placeholder="Enter Phone Number" maxlength="13" minlength="10">
+                </div>
+            <%}%>
+            <%if(forms[0].address == 1){%>
+                <div class="form-group">
+                    <label for="">Address</label>
+                    <input type="text" name="address" class="form-control" placeholder="Enter Address" maxlength="13" minlength="10">
+                </div>
+            <%}%>
+    </form>
+</div>
+<%- include('../navigation/footer') %>

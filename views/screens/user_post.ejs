@@ -1,0 +1,358 @@
+<%- include('../navigation/header') %>
+<br><br><br>
+
+<div class="container" style="background-color: white;width: 100%;padding: 10px;border-radius: 10px;box-shadow: 0 0 12px rgba(0,0,0,0.1);">
+    <div class="row" style="border-radius: 10px;box-shadow: 0px 0px 12px rgba(0,0,0,0.1);padding: 10px 20px;background-color: white;width: 100%;margin: 0;background-color: #ED3237;color: white">
+        <div class="col-lg-1 col-5" style="padding: 0px 5px;height: 40px">
+            <p style="font-weight: bold;letter-spacing: 1px">Posts</p>
+        </div>
+        <div class="col-lg-7 col-md-12" style="padding: 0px 5px;height: 40px">
+
+        </div>
+        <div class="col-lg-4 col-md-12" style="padding: 0px 5px;height: 40px">
+            <div class="form-group">
+                <select class="form-control" name="query" id="query" onchange="myFunction(this.value)">
+                    <option value="">Sort by categories</option>
+                    <%for(var i=0;i<categories.length;i++){%>
+                        <option value="<%=categories[i].name%>"><%=categories[i].name%></option>
+                    <%}%>
+                </select>
+            </div>
+        </div>
+    </div>
+        <div class="table-responsive" style="height: 80vh;padding: 0;margin: 0;overflow-y: scroll;border-radius: 10px">
+            <table class="table table-striped" id="myTable">
+                <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Phone No.</th>
+                    <th>Address</th>
+                    <th>Ad Title</th>
+                    <th>Price</th>
+                    <th>City</th>
+                    <th>Details</th>
+                    <th>Option</th>
+                    <th>Approved</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(var i =0;i<user_post.length;i++){ %>
+                <%if(user_post[i].is_approved == 0){%>
+                    <tr>
+                        <td><%= user_post[i].category_name %></td>
+                        <td><%= user_post[i].phone_number %></td>
+                        <td><%= user_post[i].address %></td>
+                        <td><%= user_post[i].ad_title %></td>
+                        <td>Rs <%= user_post[i].price %></td>
+                        <td><%= user_post[i].city %></td>
+                        <td>
+                            <a href="#preview_post<%=i%>" class="btn btn-primary" data-toggle="modal">Open</a>
+                            <div class="modal fade" id="preview_post<%=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Post Details</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <% for(var j=0;j<post_images.length;j++){ %>
+                                                    <% if(post_images[j].posts_id == user_post[i].id){ %>
+                                                        <div class="col-6" style="padding: 5px">
+                                                            <img src="http://updatekhabre.com//directory_images/<%= user_post[i].id %>/<%= post_images[j].path %>" alt="No preview" style="width: 100%;">
+                                                        </div>
+                                                    <% } %>
+                                                <% } %>
+                                            </div>
+                                            <p>Description: <%= user_post[i].description %></p>
+                                            <%if(user_post[i].brand != 'undefined'){%>
+                                            <p>Brand : <%=user_post[i].brand%></p>
+                                            <%}%>
+                                            <%if(user_post[i].year != 0){%>
+                                            <p>Year : <%=user_post[i].year%></p>
+                                            <%}%>
+                                            <%if(user_post[i].fuel != 'undefined'){%>
+                                            <p>Fuel : <%=user_post[i].fuel%></p>
+                                            <%}%>
+                                            <%if(user_post[i].transmission != 'undefined'){%>
+                                            <p>Transmission : <%=user_post[i].transmission%></p>
+                                            <%}%>
+                                            <%if(user_post[i].km_driven != 0){%>
+                                            <p>KM Driven : <%=user_post[i].km_driven%></p>
+                                            <%}%>
+                                            <%if(user_post[i].no_of_owners != 'undefined'){%>
+                                            <p>No. of owners : <%=user_post[i].no_of_owners%></p>
+                                            <%}%>
+                                            <%if(user_post[i].type != 'undefined'){%>
+                                            <p>Type : <%=user_post[i].type%></p>
+                                            <%}%>
+                                            <%if(user_post[i].property != 'undefined'){%>
+                                            <p>Property : <%=user_post[i].property%></p>
+                                            <%}%>
+                                            <%if(user_post[i].bedroom != 0){%>
+                                            <p>Bedrooms : <%=user_post[i].bedroom%></p>
+                                            <%}%>
+                                            <%if(user_post[i].bathroom != 0){%>
+                                            <p>Bathrooms : <%=user_post[i].bathroom%></p>
+                                            <%}%>
+                                            <%if(user_post[i].construction_status != 'undefined'){%>
+                                            <p>Construction Status : <%=user_post[i].construction_status%></p>
+                                            <%}%>
+                                            <%if(user_post[i].listed_by != 'undefined'){%>
+                                            <p>Listed By : <%=user_post[i].listed_by%></p>
+                                            <%}%>
+                                            <%if(user_post[i].furnishing != 'undefined'){%>
+                                            <p>Furnishing : <%=user_post[i].furnishing%></p>
+                                            <%}%>
+                                            <%if(user_post[i].total_floors != 0){%>
+                                            <p>Total Floors : <%=user_post[i].total_floors%></p>
+                                            <%}%>
+                                            <%if(user_post[i].area != 0){%>
+                                            <p>Area : <%=user_post[i].area%></p>
+                                            <%}%>
+                                            <%if(user_post[i].floor_no != 0){%>
+                                            <p>Floor No. : <%=user_post[i].floor_no%></p>
+                                            <%}%>
+                                            <%if(user_post[i].car_parking != 0){%>
+                                            <p>Car Parking : <%=user_post[i].car_parking%></p>
+                                            <%}%>
+                                            <%if(user_post[i].company_role != 'undefined'){%>
+                                            <p>Company Role : <%=user_post[i].company_role%></p>
+                                            <%}%>
+                                            <%if(user_post[i].facing != 'undefined'){%>
+                                            <p>Facing : <%=user_post[i].facing%></p>
+                                            <%}%>
+                                            <%if(user_post[i].name != 'undefined'){%>
+                                            <p>Name : <%=user_post[i].name%></p>
+                                            <%}%>
+                                            <%if(user_post[i].bachelors_allowed != 'undefined'){%>
+                                            <p>Bachelors Allowed : <%=user_post[i].bachelors_allowed%></p>
+                                            <%}%>
+                                            <%if(user_post[i].salary_period != 'undefined'){%>
+                                            <p>Salary Period : <%=user_post[i].salary_period%></p>
+                                            <%}%>
+                                            <%if(user_post[i].position_type != 'undefined'){%>
+                                            <p>Position Type : <%=user_post[i].position_type%></p>
+                                            <%}%>
+                                            <%if(user_post[i].salary_from != 0){%>
+                                            <p>Salary From : <%=user_post[i].salary_from%></p>
+                                            <%}%>
+                                            <%if(user_post[i].salary_to != 0){%>
+                                            <p>Salary To : <%=user_post[i].salary_to%></p>
+                                            <%}%>
+                                            <%if(user_post[i].appliances != 'undefined'){%>
+                                            <p>Appliances : <%=user_post[i].appliances%></p>
+                                            <%}%>
+                                            <%if(user_post[i].furniture != 'undefined'){%>
+                                            <p>Furniture : <%=user_post[i].furniture%></p>
+                                            <%}%>
+                                            <%if(user_post[i].fashion != 'undefined'){%>
+                                            <p>Fashion : <%=user_post[i].fashion%></p>
+                                            <%}%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="/delete-post/<%=user_post[i].id%>" class="confirm btn btn-danger">Delete</a>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="checkbox" name="is_not_approved" id="" value="<%= user_post[i].id %>" onchange="notapproved(this.value)">
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+                <% } %>
+                <% for(var i =0;i<user_post.length;i++){ %>
+                <%if(user_post[i].is_approved == 1){%>
+                    <tr style="padding: 0">
+                        <td><%= user_post[i].category_name %></td>
+                        <td><%= user_post[i].phone_number %></td>
+                        <td><%= user_post[i].address %></td>
+                        <td><%= user_post[i].ad_title %></td>
+                        <td>Rs <%= user_post[i].price %></td>
+                        <td><%= user_post[i].city %></td>
+                        <td>
+                            <a href="#preview_post<%=i%>" class="btn btn-primary" data-toggle="modal">Open</a>
+                            <div class="modal fade" id="preview_post<%=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Post Details</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <% for(var j=0;j<post_images.length;j++){ %>
+                                                    <% if(post_images[j].posts_id == user_post[i].id){ %>
+                                                        <div class="col-6" style="padding: 5px">
+                                                            <img src="http://updatekhabre.com//directory_images/<%= user_post[i].id %>/<%= post_images[j].path %>" alt="No preview" style="width: 100%;">
+                                                        </div>
+                                                    <% } %>
+                                                <% } %>
+                                            </div>
+                                            <p>Description: <%= user_post[i].description %></p>
+                                            <%if(user_post[i].brand != 'undefined'){%>
+                                            <p>Brand : <%=user_post[i].brand%></p>
+                                            <%}%>
+                                            <%if(user_post[i].year != 0){%>
+                                            <p>Year : <%=user_post[i].year%></p>
+                                            <%}%>
+                                            <%if(user_post[i].fuel != 'undefined'){%>
+                                            <p>Fuel : <%=user_post[i].fuel%></p>
+                                            <%}%>
+                                            <%if(user_post[i].transmission != 'undefined'){%>
+                                            <p>Transmission : <%=user_post[i].transmission%></p>
+                                            <%}%>
+                                            <%if(user_post[i].km_driven != 0){%>
+                                            <p>KM Driven : <%=user_post[i].km_driven%></p>
+                                            <%}%>
+                                            <%if(user_post[i].no_of_owners != 'undefined'){%>
+                                            <p>No. of owners : <%=user_post[i].no_of_owners%></p>
+                                            <%}%>
+                                            <%if(user_post[i].type != 'undefined'){%>
+                                            <p>Type : <%=user_post[i].type%></p>
+                                            <%}%>
+                                            <%if(user_post[i].property != 'undefined'){%>
+                                            <p>Property : <%=user_post[i].property%></p>
+                                            <%}%>
+                                            <%if(user_post[i].bedroom != 0){%>
+                                            <p>Bedrooms : <%=user_post[i].bedroom%></p>
+                                            <%}%>
+                                            <%if(user_post[i].bathroom != 0){%>
+                                            <p>Bathrooms : <%=user_post[i].bathroom%></p>
+                                            <%}%>
+                                            <%if(user_post[i].construction_status != 'undefined'){%>
+                                            <p>Construction Status : <%=user_post[i].construction_status%></p>
+                                            <%}%>
+                                            <%if(user_post[i].listed_by != 'undefined'){%>
+                                            <p>Listed By : <%=user_post[i].listed_by%></p>
+                                            <%}%>
+                                            <%if(user_post[i].furnishing != 'undefined'){%>
+                                            <p>Furnishing : <%=user_post[i].furnishing%></p>
+                                            <%}%>
+                                            <%if(user_post[i].total_floors != 0){%>
+                                            <p>Total Floors : <%=user_post[i].total_floors%></p>
+                                            <%}%>
+                                            <%if(user_post[i].area != 0){%>
+                                            <p>Area : <%=user_post[i].area%></p>
+                                            <%}%>
+                                            <%if(user_post[i].floor_no != 0){%>
+                                            <p>Floor No. : <%=user_post[i].floor_no%></p>
+                                            <%}%>
+                                            <%if(user_post[i].car_parking != 0){%>
+                                            <p>Car Parking : <%=user_post[i].car_parking%></p>
+                                            <%}%>
+                                            <%if(user_post[i].company_role != 'undefined'){%>
+                                            <p>Company Role : <%=user_post[i].company_role%></p>
+                                            <%}%>
+                                            <%if(user_post[i].facing != 'undefined'){%>
+                                            <p>Facing : <%=user_post[i].facing%></p>
+                                            <%}%>
+                                            <%if(user_post[i].name != 'undefined'){%>
+                                            <p>Name : <%=user_post[i].name%></p>
+                                            <%}%>
+                                            <%if(user_post[i].bachelors_allowed != 'undefined'){%>
+                                            <p>Bachelors Allowed : <%=user_post[i].bachelors_allowed%></p>
+                                            <%}%>
+                                            <%if(user_post[i].salary_period != 'undefined'){%>
+                                            <p>Salary Period : <%=user_post[i].salary_period%></p>
+                                            <%}%>
+                                            <%if(user_post[i].position_type != 'undefined'){%>
+                                            <p>Position Type : <%=user_post[i].position_type%></p>
+                                            <%}%>
+                                            <%if(user_post[i].salary_from != 0){%>
+                                            <p>Salary From : <%=user_post[i].salary_from%></p>
+                                            <%}%>
+                                            <%if(user_post[i].salary_to != 0){%>
+                                            <p>Salary To : <%=user_post[i].salary_to%></p>
+                                            <%}%>
+                                            <%if(user_post[i].appliances != 'undefined'){%>
+                                            <p>Appliances : <%=user_post[i].appliances%></p>
+                                            <%}%>
+                                            <%if(user_post[i].furniture != 'undefined'){%>
+                                            <p>Furniture : <%=user_post[i].furniture%></p>
+                                            <%}%>
+                                            <%if(user_post[i].fashion != 'undefined'){%>
+                                            <p>Fashion : <%=user_post[i].fashion%></p>
+                                            <%}%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="/delete-form/<%=user_post[i].id%>" class="confirm btn btn-danger">Delete</a>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="checkbox" name="is_approved" id="" value="<%= user_post[i].id %>" onchange="approved(this.value)" checked>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+</div>
+
+<script>
+    $('a.confirm').on('click', function(){
+        if(!confirm('Confirm Deletion')){
+            return false;
+        }
+    });
+    function approved(a){
+        $.ajax({
+            url:"/postnotapproved/" + a,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                console.log('done');
+                window.location.href = window.location.href;
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+    function notapproved(a){
+        $.ajax({
+            url:"/postapproved/" + a,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                console.log('done');
+                window.location.href = window.location.href;
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+    function myFunction(a) {
+        var filter, table, tr, td, i, txtValue;
+        filter = a.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<%- include('../navigation/footer') %>

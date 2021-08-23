@@ -1,0 +1,173 @@
+<%- include('../navigation/header') %>
+<br><br><br>
+<% var p = []; %>
+<% for(var i =0;i<slider.length;i++){ %>
+<%p.push(parseInt(slider[i].order));%>
+<% } %>
+<%var m= Math.max(...p) %>
+
+<div class="container" style="background-color: white;width: 100%;padding: 0px;border-radius: 10px;box-shadow: 0px 0px 12px rgba(0,0,0,0.1);overflow: hidden">
+    <div class="row">
+        <div class="col-lg-4 col-md-12" style="padding: 25px 20px 30px 35px">
+            <h5 style="font-weight: bold;letter-spacing: 1px;text-align: center">Slider</h5>
+            <br>
+            <form action="/add-slider-images" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="">Add Images(Select Multiple Images)</label>
+                    <input type="file" class="form-control-file" name="images" id="img" accept="image/x-png,image/gif,image/jpeg" multiple required>
+                </div>
+                <input type="hidden" name="admin_id" value=<%=admin_id%>>
+                <div class="form-group">
+                    <select class="form-control" name="category">
+                        <option value="main">Main news</option>
+                        <option value="inside">Inside news</option>
+                    </select>
+                </div>
+                <input type="hidden" name="order" value=<%= m %>>
+                <button type="submit" class="btn btn-primary" style="width: 100%;background-color: #556ee6">Add</button>
+            </form>
+        </div>
+        <div class="col-lg-8 col-md-12" style="background-color: white;text-align: center;height: 72vh;overflow-y: scroll">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Order</th>
+                    <th style="width:50%">Image</th>
+                    <th>User</th>
+                    <th>Option</th>
+                    <th>Category</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% for(var i =0;i<slider.length;i++){ %>
+                        <tr>
+                            <th><%= i+1 %></th>
+                            <td><img src="/slider_images/<%= slider[i].image_path %>" alt="" width="50%"></td>
+                            <td><%= slider[i].u_name%></td>
+                            <%if(role_id == 1){%>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <a href="/delete-slider/<%= slider[i].slider_id%>" style="color: #DC3545;text-decoration: none;padding: 4px 8px;border-radius: 50%" class="confirm"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <input type="hidden" name="" id="slider_id<%=i%>" value=<%=slider[i].slider_id%>>
+                                    <div class="form-group">
+                                        <select class="form-control" name="category" id="category<%=i%>" onchange="changeCategory(<%=i%>)">
+                                            <option><%=slider[i].category%></option>
+                                            <option value="main">Main news</option>
+                                            <option value="inside">Inside news</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            <%} else if(role_id == 2) {%>
+                            <%if(admin_id == slider[i].user_id){%>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <a href="/delete-slider/<%= slider[i].slider_id%>" style="color: #DC3545;text-decoration: none;padding: 4px 8px;border-radius: 50%" class="confirm"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <input type="hidden" name="" id="slider_id<%=i%>" value=<%=slider[i].slider_id%>>
+                                    <div class="form-group">
+                                        <select class="form-control" name="category" id="category<%=i%>" onchange="changeCategory(<%=i%>)">
+                                            <option><%=slider[i].category%></option>
+                                            <option value="main">Main news</option>
+                                            <option value="inside">Inside news</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            <%} else {%>
+                                <td>Not allowed to delete</td>
+                                <td>Not allowed to Change</td>
+                            <%}%>
+                            <%}%>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <a href="#order" data-toggle="modal" class="btn btn-primary" style="width: 100%;border-radius: 0">Change Order</a>
+    <!-- Modal -->
+    <div class="modal fade" id="order" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Change Order</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/change-order" method="post">
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Current Order</th>
+                                <th style="width:50%">Image</th>
+                                <th>New Order</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% for(var i =0;i<slider.length;i++){ %>
+                                <tr>
+                                    <th><%= slider[i].order %></th>
+                                    <td><img src="/slider_images/<%= slider[i].image_path %>" alt="" width="50%"></td>
+                                    <td>
+                                        <div class="form-group">
+                                            <select class="form-control" name="n_order">
+                                                <option value="<%= slider[i].order %>" style="color: #B1110E"><%= slider[i].order %></option>
+                                                <% for(var j=0;j<slider.length;j++){ %>
+                                                    <option value="<%= slider[j].order %>"><%= slider[j].order %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                        <input type="hidden" name="slider_id" value=<%= slider[i].slider_id%>>
+                                    </td>
+                                </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<script>
+    $('a.confirm').on('click', function(){
+        if(!confirm('Confirm Deletion')){
+            return false;
+        }
+    });
+    function changeCategory(i){
+        var a = document.getElementById('category'+i).value;
+        var slider_id = document.getElementById('slider_id'+i).value;
+        $.ajax({
+            url:"/changeSliderCategory/" + a + '/' + slider_id,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                console.log('success');
+                location.reload();
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    };
+</script>
+
+<%- include('../navigation/footer') %>

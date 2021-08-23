@@ -1,0 +1,101 @@
+<%- include('../navigation/header') %>
+<br><br><br>
+<div class="container" style="background-color: white;width: 100%;padding: 0px;border-radius: 10px;box-shadow: 0px 0px 12px rgba(0,0,0,0.1);overflow: hidden">
+    <div class="row">
+        <div class="col-lg-6 col-md-12" style="padding: 25px 20px 30px 35px">
+            <h5 style="font-weight: bold;letter-spacing: 1px;text-align: center">Create New Category</h5>
+            <br>
+            <form action="/add-new-category" method="post">
+                <div class="form-group">
+                    <label for="">Category</label>
+                    <input type="text" class="form-control" id="category" name="category" onkeyup="checkCategory()" placeholder="Enter Category Name" required>
+                    <small id="checkCategory" class="form-text" style="text-align: center;"></small>
+                </div>
+                <div class="form-group">
+                    <label for="">Select Color For Heading</label>
+                    <input type="color" class="form-control" id="" name="headingColor" placeholder="Enter Category Name" required>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="is_state" value="1" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault" style="color: red">
+                        ** If it is a State then select this **
+                    </label>
+                </div>
+                <br>
+                <button type="submit" id="verify" class="btn btn-primary" style="width: 100%;background-color: #556ee6" disabled>Add</button>
+            </form>
+        </div>
+        <div class="col-lg-6 col-md-12" style="padding: 25px 20px 30px 35px">
+            <h5 style="font-weight: bold;letter-spacing: 1px;text-align: center">Create New Sub Category</h5>
+            <br>
+            <form action="/add-sub-category" method="post">
+
+                <div class="form-group">
+                    <label for="">Selct Category</label>
+                    <select class="form-control" name="c" id="c">
+                        <option value="name">Select Category</option>
+                        <% for(var i=0;i<categories.length;i++){ %>
+                        <%if(categories[i].name != null){%>
+                            <option value="<%= categories[i].id %>"><%= categories[i].name %></option>
+                        <% } %>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Sub-Category Name</label>
+                    <input type="text" class="form-control" id="sub-category" name="subcategory" onkeyup="checkSubCategory()" placeholder="Enter Sub-Category Name" required>
+                    <small id="checkSubCategory" class="form-text" style="text-align: center;"></small>
+                </div>
+                <button type="submit" id="verifySub" class="btn btn-primary" style="width: 100%;background-color: #556ee6" disabled>Add</button>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+
+<script>
+    function checkCategory(){
+        var b = document.getElementById('category').value;
+        $.ajax({
+            url:"/searchCategory/" + b,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                if(data[0] != undefined){
+                    document.getElementById('checkCategory').innerHTML = "Category already exists";
+                    document.getElementById('checkCategory').style.color = "rgb(255, 31, 31)";
+                    $('#verify').attr("disabled","disabled");
+                } else {
+                    document.getElementById('checkCategory').innerHTML = "";
+                    $('#verify').removeAttr("disabled");
+                }
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+    function checkSubCategory(){
+        var c = document.getElementById('sub-category').value;
+        $.ajax({
+            url:"/searchSubCategory/" + c,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                if(data[0] != undefined){
+                    document.getElementById('checkSubCategory').innerHTML = " Sub-Category already exists";
+                    document.getElementById('checkSubCategory').style.color = "rgb(255, 31, 31)";
+                    $('#verifySub').attr("disabled","disabled");
+                } else {
+                    document.getElementById('checkSubCategory').innerHTML = "";
+                    $('#verifySub').removeAttr("disabled");
+                }
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+</script>
+
+<%- include('../navigation/footer') %>

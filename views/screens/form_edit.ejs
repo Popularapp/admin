@@ -1,0 +1,375 @@
+<%- include('../navigation/header') %>
+<br><br><br>
+
+<div class="container" style="background-color: white;width: 100%;padding: 10px;border-radius: 10px;box-shadow: 0 0 12px rgba(0,0,0,0.1);overflow: hidden">
+    <div class="row">
+        <div class="col-12">
+            <form action="/edit-form/<%=id%>" method="post">
+                <div class="row">
+                    <div class="col-6 col-lg-2">
+                        <a href="/forms" class="btn btn-primary">All Forms</a>
+                    </div>
+                    <div class="col-6 col-lg-10">
+                        <h3><%=forms[0].category_name%> Form</h3>
+                    </div>
+                    <div class="col-12">
+                        <hr>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="form-check">
+                            <%if(forms[0].ad_title == 1){%>
+                            <input class="form-check-input" type="checkbox" name="ad_title" value=1 id="ad_title" checked>
+                            <% } else {%>
+                                    <input class="form-check-input" type="checkbox" name="ad_title" value=1 id="ad_title">
+                                <%}%>
+                            <label class="form-check-label" for="ad_title">
+                                Ad Title
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].description == 1){%>
+                                <input class="form-check-input" type="checkbox" name="description" value=1 id="description" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="description" value=1 id="description">
+                            <%}%>
+                            <label class="form-check-label" for="description">
+                                Descreption
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].price == 1){%>
+                                <input class="form-check-input" type="checkbox" name="price" value=1 id="price" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="price" value=1 id="price">
+                            <%}%>
+                            <label class="form-check-label" for="price">
+                                Price
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].phone_number == 1){%>
+                                <input class="form-check-input" type="checkbox" name="phone_number" value=1 id="phone_number" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="phone_number" value=1 id="phone_number">
+                            <%}%>
+                            <label class="form-check-label" for="phone_number">
+                                Phone Number
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].address == 1){%>
+                                <input class="form-check-input" type="checkbox" name="address" value=1 id="address" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="address" value=1 id="address">
+                            <%}%>
+                            <label class="form-check-label" for="address">
+                                Address
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].brand == 1){%>
+                                <input class="form-check-input" type="checkbox" name="brand" value=1 id="brand" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="brand" value=1 id="brand">
+                            <%}%>
+                            <label class="form-check-label" for="brand">
+                                Brand
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].year == 1){%>
+                                <input class="form-check-input" type="checkbox" name="year" value=1 id="year" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="year" value=1 id="year">
+                            <%}%>
+                            <label class="form-check-label" for="year">
+                                Year
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].fuel == 1){%>
+                                <input class="form-check-input" type="checkbox" name="fuel" value=1 id="fuel" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="fuel" value=1 id="fuel">
+                            <%}%>
+                            <label class="form-check-label" for="fuel">
+                                Fuel
+                            </label>
+                            <small>( Petrol/Diesel )</small>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].transmission == 1){%>
+                                <input class="form-check-input" type="checkbox" name="transmission" value=1 id="transmission" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="transmission" value=1 id="transmission">
+                            <%}%>
+                            <label class="form-check-label" for="transmission">
+                                Transmission
+                            </label>
+                            <small>(Automatic/Manual)</small>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].km_driven == 1){%>
+                                <input class="form-check-input" type="checkbox" name="km_driven" value=1 id="km_driven" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="km_driven" value=1 id="km_driven">
+                            <%}%>
+                            <label class="form-check-label" for="km_driven">
+                                KM Driven
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].no_of_owners == 1){%>
+                                <input class="form-check-input" type="checkbox" name="no_of_owners" value=1 id="no_of_owners" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="no_of_owners" value=1 id="no_of_owners">
+                            <%}%>
+                            <label class="form-check-label" for="no_of_owners">
+                                No. of Owners
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].type == 1){%>
+                                <input class="form-check-input" type="checkbox" name="type" value=1 id="type" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="type" value=1 id="type">
+                            <%}%>
+                            <label class="form-check-label" for="type">
+                                Type
+                            </label>
+                            <small>( For Sale/For Rent )</small>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].property == 1){%>
+                                <input class="form-check-input" type="checkbox" name="property" value=1 id="property" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="property" value=1 id="property">
+                            <%}%>
+                            <label class="form-check-label" for="property">
+                                Property
+                            </label>
+                            <small>( House & Villas / Farm Houses / Builder Floors / Apartments / Shop & offices / PG & Guest House)</small>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="form-check">
+                            <%if(forms[0].bedroom == 1){%>
+                                <input class="form-check-input" type="checkbox" name="bedroom" value=1 id="bedroom" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="bedroom" value=1 id="bedroom">
+                            <%}%>
+                            <label class="form-check-label" for="bedroom">
+                                Bedrooms
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].bathroom == 1){%>
+                                <input class="form-check-input" type="checkbox" name="bathroom" value=1 id="bathroom" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="bathroom" value=1 id="bathroom">
+                            <%}%>
+                            <label class="form-check-label" for="bathroom">
+                                Bathrooms
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].furnishing == 1){%>
+                                <input class="form-check-input" type="checkbox" name="furnishing" value=1 id="furnishing" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="furnishing" value=1 id="furnishing">
+                            <%}%>
+                            <label class="form-check-label" for="furnishing">
+                                Furnishing
+                            </label>
+                            <small>( Semi Furnished / Full Furnished / Under Furnished )</small>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].construction_status == 1){%>
+                                <input class="form-check-input" type="checkbox" name="construction_status" value=1 id="construction_status" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="construction_status" value=1 id="construction_status">
+                            <%}%>
+                            <label class="form-check-label" for="construction_status">
+                                Construction Status
+                            </label>
+                            <small>( Ready to Move / New Launch / Under Construction )</small>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].listed_by == 1){%>
+                                <input class="form-check-input" type="checkbox" name="listed_by" value=1 id="listed_by" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="listed_by" value=1 id="listed_by">
+                            <%}%>
+                            <label class="form-check-label" for="listed_by">
+                                Listed By
+                            </label>
+                            <small>( Builder / Owner / Dealer )</small>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].area == 1){%>
+                                <input class="form-check-input" type="checkbox" name="area" value=1 id="area" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="area" value=1 id="area">
+                            <%}%>
+                            <label class="form-check-label" for="area">
+                                Area
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].total_floors == 1){%>
+                                <input class="form-check-input" type="checkbox" name="total_floors" value=1 id="total_floors" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="total_floors" value=1 id="total_floors">
+                            <%}%>
+                            <label class="form-check-label" for="total_floors">
+                                Total Floors
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].floor_no == 1){%>
+                                <input class="form-check-input" type="checkbox" name="floor_no" value=1 id="floor_no" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="floor_no" value=1 id="floor_no">
+                            <%}%>
+                            <label class="form-check-label" for="floor_no">
+                                Floor No.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].car_parking == 1){%>
+                                <input class="form-check-input" type="checkbox" name="car_parking" value=1 id="car_parking" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="car_parking" value=1 id="car_parking">
+                            <%}%>
+                            <label class="form-check-label" for="car_parking">
+                                Car Parking
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].company_role == 1){%>
+                                <input class="form-check-input" type="checkbox" name="company_role" value=1 id="company_role" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="company_role" value=1 id="company_role">
+                            <%}%>
+                            <label class="form-check-label" for="company_role">
+                                Company Role
+                            </label>
+                            <small>( Data Entry & Back Office / Sales & Marketing / BPO & Telecaller / Delivery & Collection / Teacher / Cook / Receptionist & Front Office / Operator & Technician / IT Engineer & Developer / Hotel & Travel Executive / Accountant / Designer / Other Jobs )</small>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="form-check">
+                            <%if(forms[0].facing == 1){%>
+                                <input class="form-check-input" type="checkbox" name="facing" value=1 id="facing" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="facing" value=1 id="facing">
+                            <%}%>
+                            <label class="form-check-label" for="facing">
+                                Facing
+                            </label><small>( North / South / East / West / North-West / South-West / North-East / South-East )</small>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].name == 1){%>
+                                <input class="form-check-input" type="checkbox" name="name" value=1 id="name" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="name" value=1 id="name">
+                            <%}%>
+                            <label class="form-check-label" for="name">
+                                Name
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].bachelors_allowed == 1){%>
+                                <input class="form-check-input" type="checkbox" name="bachelors_allowed" value=1 id="bachelors_allowed" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="bachelors_allowed" value=1 id="bachelors_allowed">
+                            <%}%>
+                            <label class="form-check-label" for="bachelors_allowed">
+                                Bachelors Allowed
+                            </label>
+                            <small>( Yes / No )</small>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].salary_period == 1){%>
+                                <input class="form-check-input" type="checkbox" name="salary_period" value=1 id="salary_period" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="salary_period" value=1 id="salary_period">
+                            <%}%>
+                            <label class="form-check-label" for="salary_period">
+                                Salary Period
+                            </label>
+                            <small>( Hourly / Monthly / Weekly / Yearly )</small>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].position_type == 1){%>
+                                <input class="form-check-input" type="checkbox" name="position_type" value=1 id="position_type" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="position_type" value=1 id="position_type">
+                            <%}%>
+                            <label class="form-check-label" for="position_type">
+                                Position Type
+                            </label>
+                            <small>( Contract / Full-time / Part-time / Temporary )</small>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].salary_from == 1){%>
+                                <input class="form-check-input" type="checkbox" name="salary_from" value=1 id="salary_from" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="salary_from" value=1 id="salary_from">
+                            <%}%>
+                            <label class="form-check-label" for="salary_from">
+                                Salary From
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].salary_to == 1){%>
+                                <input class="form-check-input" type="checkbox" name="salary_to" value=1 id="salary_to" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="salary_to" value=1 id="salary_to">
+                            <%}%>
+                            <label class="form-check-label" for="salary_to">
+                                Salary To
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].appliances == 1){%>
+                                <input class="form-check-input" type="checkbox" name="appliances" value=1 id="appliances" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="appliances" value=1 id="appliances">
+                            <%}%>
+                            <label class="form-check-label" for="appliances">
+                                Appliances
+                            </label>
+                            <small>( TV's, Video & Audio / Kitchen & Other Appliances / Computers & Laptops / Cameras & Lenses / Games & Entertainment / Fridges / Computer Accessories / Hard-disks, Printers & Monitors / AC's / Washing Machines )</small>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].furniture == 1){%>
+                                <input class="form-check-input" type="checkbox" name="furniture" value=1 id="furniture" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="furniture" value=1 id="furniture">
+                            <%}%>
+                            <label class="form-check-label" for="furniture">
+                                Furniture
+                            </label>
+                            <small>( Sofa & Dining / Beds & Wardrobes / Home Decor & Garden / Kids Furniture / Other Household Items )</small>
+                        </div>
+                        <div class="form-check">
+                            <%if(forms[0].fashion == 1){%>
+                                <input class="form-check-input" type="checkbox" name="fashion" value=1 id="fashion" checked>
+                            <% } else {%>
+                                <input class="form-check-input" type="checkbox" name="fashion" value=1 id="fashion">
+                            <%}%>
+                            <label class="form-check-label" for="fashion">
+                                Fashion
+                            </label>
+                            <small>( Men / Women / Kids )</small>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary" style="width: 100%;background-color: #556ee6">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include('../navigation/footer') %>

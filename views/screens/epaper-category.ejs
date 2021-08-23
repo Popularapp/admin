@@ -1,0 +1,89 @@
+<%- include('../navigation/header') %>
+<br><br><br>
+<div class="container" style="background-color: white;width: 100%;padding: 0px;border-radius: 10px;box-shadow: 0px 0px 12px rgba(0,0,0,0.1);overflow: hidden">
+    <div class="row">
+        <div class="col-lg-4 col-md-12" style="padding: 25px 20px 30px 35px">
+            <h5 style="font-weight: bold;letter-spacing: 1px;text-align: center">Create New Directory</h5>
+            <br>
+            <form action="/add-epaper-category" method="post">
+                <div class="form-group">
+                    <label for="">Category</label>
+                    <input type="text" class="form-control" id="category" name="category" onkeyup="checkCategory()" placeholder="Enter Category Name" required>
+                    <small id="checkCategory" class="form-text" style="text-align: center;"></small>
+                </div>
+                <button type="submit" id="verify" class="btn btn-primary" style="width: 100%;background-color: #556ee6" disabled>Add</button>
+            </form>
+        </div>
+        <div class="col-lg-8 col-md-12" style="background-color: white;text-align: center;height: 72vh;overflow-y: scroll">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>S.no.</th>
+                    <th>Name</th>
+                    <th>Option</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(var i =0;i<categories.length;i++){ %>
+                    <tr>
+                        <th><%= i+1 %></th>
+                        <td><%= categories[i].name%></td>
+                        <%if(role_id == 1){%>
+                            <td>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <a href="/delete-epaper-category/<%= categories[i].id%>" style="color: #DC3545;text-decoration: none;padding: 4px 8px;border-radius: 50%" class="confirm"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </td>
+                        <%} else if(role_id == 2) {%>
+                        <%if(admin_id == categories[i].user_id){%>
+                            <td>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <a href="/delete-epaper-category/<%= categories[i].id%>" style="color: #DC3545;text-decoration: none;padding: 4px 8px;border-radius: 50%" class="confirm"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </td>
+                        <%} else {%>
+                            <td>Not allowed to delete</td>
+                        <%}%>
+                        <%}%>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+<script>
+    $('a.confirm').on('click', function(){
+        if(!confirm('Confirm Deletion')){
+            return false;
+        }
+    });
+    function checkCategory(){
+        var b = document.getElementById('category').value;
+        $.ajax({
+            url:"/searchEpaperCategory/" + b,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(data){
+                if(data[0] != undefined){
+                    document.getElementById('checkCategory').innerHTML = "Category already exists";
+                    document.getElementById('checkCategory').style.color = "rgb(255, 31, 31)";
+                    $('#verify').attr("disabled","disabled");
+                } else {
+                    document.getElementById('checkCategory').innerHTML = "";
+                    $('#verify').removeAttr("disabled");
+                }
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+    }
+</script>
+
+<%- include('../navigation/footer') %>
